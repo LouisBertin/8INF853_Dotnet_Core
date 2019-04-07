@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using web_mvc.Models;
 
 namespace web_mvc.Controllers
 {
+    [Authorize]
     public class MarquesController : Controller
     {
         private readonly ApplicationDbContext _context;

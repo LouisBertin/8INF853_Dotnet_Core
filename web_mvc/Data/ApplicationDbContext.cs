@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using web_mvc.Models;
 
 namespace web_mvc.Data
 {
@@ -12,5 +13,6 @@ namespace web_mvc.Data
             : base(options)
         {
         }
+        public DbSet<web_mvc.Models.Marque> Marque { get; set; }
     }
 }

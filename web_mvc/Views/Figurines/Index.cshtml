@@ -1,0 +1,101 @@
+﻿@model IEnumerable<web_mvc.Models.Figurine>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Prix
+            </th>
+            <th>
+                Quantité (magasin)
+            </th>
+            <th>
+                Quantité (stock)
+            </th>
+            <th>
+               Date de parution
+            </th>
+            <th>
+               Nombre d'exemplaires
+            </th>
+            <th>
+               Poids
+            </th>
+            <th>
+               Largeur
+            </th>
+            <th>
+                Hauteur
+            </th>
+            <th>
+                Longueur
+            </th>
+            <th>
+                Référence
+            </th>
+            <th>
+               Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prix_ttc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantite_magasin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantite_stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_parution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nb_exemplaires)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.poids)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.largeur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hauteur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longueur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

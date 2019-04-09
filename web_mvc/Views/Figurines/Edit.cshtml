@@ -1,0 +1,101 @@
+﻿@model web_mvc.Models.Figurine
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Figurine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="prix_ttc" class="control-label">Prix</label>
+                <input asp-for="prix_ttc" class="form-control" />
+                <span asp-validation-for="prix_ttc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="quantite_magasin" class="control-label">Quantité (magasin)</label>
+                <input asp-for="quantite_magasin" class="form-control" />
+                <span asp-validation-for="quantite_magasin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="quantite_stock" class="control-label">Quantité (stock)</label>
+                <input asp-for="quantite_stock" class="form-control" />
+                <span asp-validation-for="quantite_stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="date_parution" class="control-label">Date de parution</label>
+                <input asp-for="date_parution" class="form-control" />
+                <span asp-validation-for="date_parution" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nb_exemplaires" class="control-label">Nombre d'exemplaires</label>
+                <input asp-for="nb_exemplaires" class="form-control" />
+                <span asp-validation-for="nb_exemplaires" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="poids" class="control-label">Poids</label>
+                <input asp-for="poids" class="form-control" />
+                <span asp-validation-for="poids" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="largeur" class="control-label">Largeur</label>
+                <input asp-for="largeur" class="form-control" />
+                <span asp-validation-for="largeur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hauteur" class="control-label">Hauteur</label>
+                <input asp-for="hauteur" class="form-control" />
+                <span asp-validation-for="hauteur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="longueur" class="control-label">Longueur</label>
+                <input asp-for="longueur" class="form-control" />
+                <span asp-validation-for="longueur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="reference" class="control-label">Référence</label>
+                <input asp-for="reference" class="form-control" />
+                <span asp-validation-for="reference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label">Description</label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MarqueId" class="control-label">Marque</label>
+                <select asp-for="MarqueId" class="form-control" asp-items="@(new SelectList(ViewBag.MarquesList, "Id", "Nom"))" >
+                </select>
+                <span asp-validation-for="MarqueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategorieId" class="control-label">Catégorie</label>
+                <select asp-for="CategorieId" class="form-control" asp-items="@(new SelectList(ViewBag.CategoriesList, "Id", "nom"))">
+                </select>
+                <span asp-validation-for="CategorieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

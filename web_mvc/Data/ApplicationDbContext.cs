@@ -16,5 +16,6 @@ namespace web_mvc.Data
         public DbSet<web_mvc.Models.Marque> Marque { get; set; }
         public DbSet<web_mvc.Models.Categorie> Categorie { get; set; }
         public DbSet<web_mvc.Models.Figurine> Figurine { get; set; }
+        public DbSet<web_mvc.Models.Reservation> Reservation { get; set; }
     }
 }

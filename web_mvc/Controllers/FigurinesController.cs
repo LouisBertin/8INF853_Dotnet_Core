@@ -20,9 +20,17 @@ namespace web_mvc.Controllers
         }
 
         // GET: Figurines
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Figurine.ToListAsync());
+            ViewData["currentFilter"] = searchString;
+            var figurines = from s in _context.Figurine select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+               figurines = figurines.Where(r => r.Nom.Contains(searchString));
+            }
+
+            return View(await figurines.AsNoTracking().ToListAsync());
         }
 
         // GET: Figurines/Details/5

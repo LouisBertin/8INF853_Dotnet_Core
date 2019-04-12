@@ -20,16 +20,33 @@ namespace web_mvc.Controllers
         }
 
         // GET: Figurines
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString,string searchMarque,string searchCategorie)
         {
             ViewData["currentFilter"] = searchString;
+            ViewData["currentFilterMarque"] = searchMarque;
+            ViewData["currentFilterCatégorie"] = searchCategorie;
+            ViewData["MarqueId"] = new SelectList(_context.Marque, "Id", "Nom");
+            ViewData["CategorieId"] = new SelectList(_context.Categorie, "Id", "nom");
+
+            if(searchString == null && searchMarque== null && searchCategorie == null)
+            {
+                return View(await _context.Figurine.ToListAsync());
+            }
+
             var figurines = from s in _context.Figurine select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                figurines = figurines.Where(r => r.Nom.Contains(searchString));
             }
-
+            if(searchMarque!="Select One")
+            {
+                figurines = figurines.Where(r => r.MarqueId.ToString().Equals(searchMarque));
+            }
+            if (searchCategorie != "Select One")
+            {
+                figurines = figurines.Where(r => r.CategorieId.ToString().Equals(searchCategorie));
+            }
             return View(await figurines.AsNoTracking().ToListAsync());
         }
 

@@ -1,0 +1,48 @@
+﻿@model web_mvc.Models.Reservation
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.achete)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.achete)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.quantite)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.quantite)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.date_expiration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.date_expiration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.montant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.montant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.figurine)
+        </dt>
+        <dd>
+            @Html.Raw(ViewBag.Figurine)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

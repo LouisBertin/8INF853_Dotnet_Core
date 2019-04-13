@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,22 +14,24 @@ namespace web_mvc.Controllers
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReservationsController(ApplicationDbContext context)
+        public ReservationsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
+
             var applicationDbContext = _context.Reservation.Include(r => r.figurine);
 
-
             List<Reservation> reservations = await applicationDbContext.ToListAsync();
-            foreach(Reservation reservation in reservations)
+            foreach (Reservation reservation in reservations)
             {
-                if(DateTime.Compare(reservation.date_expiration,DateTime.Now) <= 0)
+                if (DateTime.Compare(reservation.date_expiration, DateTime.Now) <= 0)
                 {
                     List<Figurine> figurines = _context.Figurine.ToList();
 
@@ -44,8 +47,17 @@ namespace web_mvc.Controllers
                     }
                 }
             }
+
+            var reserver =  applicationDbContext.Where(r => r.achete == false);
+
+            if (User.IsInRole("Customer"))
+            {
+                string userId = _userManager.GetUserId(HttpContext.User);
+                return View(reserver.Where(r => r.UserId == userId));
+            }
            
-            return View(await applicationDbContext.Where(r=> r.achete == false).ToListAsync());
+            return View(await reserver.ToListAsync());
+
         }
 
         // GET: Reservations/Details/5
@@ -116,6 +128,10 @@ namespace web_mvc.Controllers
                 }
             }
 
+            
+
+            reservation.UserId = _userManager.GetUserId(HttpContext.User);
+
             reservation.date_expiration = DateTime.Now.AddDays(7);
            
 
@@ -130,6 +146,7 @@ namespace web_mvc.Controllers
 
             return View(reservation);
         }
+
 
         // GET: Reservations/Edit/5
         public async Task<IActionResult> Edit(int? id)

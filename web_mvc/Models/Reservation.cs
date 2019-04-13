@@ -29,5 +29,7 @@ namespace web_mvc.Models
 
         public int FigurineId { get; set; }
         public Figurine figurine { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -6,9 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 
 @if (User.IsInRole("Customer") || !User.Identity.IsAuthenticated)
 {
@@ -49,90 +52,90 @@
 }
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Quantity (shop)
-            </th>
-            <th>
-                Quantity (stock)
-            </th>
-            <th>
-                Release Date
-            </th>
-            <th>
-                Weight
-            </th>
-            <th>
-                Width
-            </th>
-            <th>
-                Height
-            </th>
-            <th>
-                Length
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.prix_ttc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.quantite_magasin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.quantite_stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date_parution)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.poids) kg
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.largeur) m
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.hauteur) m
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.longueur) m
-                </td>
-                <td>
-                    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    }
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                </td>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Quantity (shop)
+                </th>
+                <th>
+                    Quantity (stock)
+                </th>
+                <th>
+                    Release Date
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Width
+                </th>
+                <th>
+                    Height
+                </th>
+                <th>
+                    Length
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.prix_ttc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantite_magasin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantite_stock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date_parution)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.poids) kg
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.largeur) m
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hauteur) m
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.longueur) m
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-<p>
-    @if (User.IsInRole("Customer"))
-    {
-        <a asp-action="Create" asp-controller="Reservations">Book a figurine</a>
-    }
-</p>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>
+        @if (User.IsInRole("Customer"))
+        {
+            <a asp-action="Create" asp-controller="Reservations">Book a figurine</a>
+        }
+    </p>

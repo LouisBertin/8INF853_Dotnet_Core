@@ -107,5 +107,21 @@ namespace web_mvc.Data
             context.Update(categorie);
             await context.SaveChangesAsync();
         }
+
+        public static async Task CreateMarque(IServiceProvider serviceProvider, IConfiguration Configuration)
+        {
+            // get context service
+            ApplicationDbContext context = serviceProvider.GetService<ApplicationDbContext>();
+
+            if (context.Marque.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var marque = new Marque("funko");
+            context.Update(marque);
+            await context.SaveChangesAsync();
+        }
+
     }
 }

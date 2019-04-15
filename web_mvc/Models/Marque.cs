@@ -10,5 +10,11 @@ namespace web_mvc.Models
         public int Id { get; set; }
         public string Nom { get; set; }
         public ICollection<Figurine> figurines { get; set; }
+
+        public Marque() { }
+        public Marque(string nom)
+        {
+            this.Nom = nom;
+        }
     }
 }

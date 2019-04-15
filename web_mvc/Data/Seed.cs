@@ -103,7 +103,7 @@ namespace web_mvc.Data
                 return;   // DB has been seeded
             }
 
-            var categorie = new Categorie("test");
+            var categorie = new Categorie("Test");
             context.Update(categorie);
             await context.SaveChangesAsync();
         }
@@ -118,7 +118,7 @@ namespace web_mvc.Data
                 return;   // DB has been seeded
             }
 
-            var marque = new Marque("funko");
+            var marque = new Marque("Funko");
             context.Update(marque);
             await context.SaveChangesAsync();
         }

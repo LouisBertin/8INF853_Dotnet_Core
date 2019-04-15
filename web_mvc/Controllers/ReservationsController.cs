@@ -227,7 +227,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Reservations/Delete/5
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -249,7 +249,7 @@ namespace web_mvc.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reservation = await _context.Reservation.FindAsync(id);

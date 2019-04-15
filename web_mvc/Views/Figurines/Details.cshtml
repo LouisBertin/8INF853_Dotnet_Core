@@ -11,67 +11,67 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Nom
+            Name
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Nom)
         </dd>
         <dt>
-           Prix
+           Price
         </dt>
         <dd>
             @Html.DisplayFor(model => model.prix_ttc)
         </dd>
         <dt>
-           Quantité (magasin)
+           Quantity (shop)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.quantite_magasin)
         </dd>
         <dt>
-            Quantité (stock)
+            Quantity (stock)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.quantite_stock)
         </dd>
         <dt>
-            Date de parution
+            Release Date
         </dt>
         <dd>
             @Html.DisplayFor(model => model.date_parution)
         </dd>
         <dt>
-            Nombre d'exemplaires
+            Number of copies
         </dt>
         <dd>
             @Html.DisplayFor(model => model.nb_exemplaires)
         </dd>
         <dt>
-            Poids
+            Weight
         </dt>
         <dd>
             @Html.DisplayFor(model => model.poids)
         </dd>
         <dt>
-            Largeur
+            Width
         </dt>
         <dd>
             @Html.DisplayFor(model => model.largeur)
         </dd>
         <dt>
-            Hauteur
+            Height
         </dt>
         <dd>
             @Html.DisplayFor(model => model.hauteur)
         </dd>
         <dt>
-            Longueur
+            Length
         </dt>
         <dd>
             @Html.DisplayFor(model => model.longueur)
         </dd>
         <dt>
-            Référence
+            Reference
         </dt>
         <dd>
             @Html.DisplayFor(model => model.reference)
@@ -83,13 +83,13 @@
             @Html.DisplayNameFor(model => model.description)
         </dd>
         <dt>
-            Marque
+            Brand
         </dt>
         <dd>
             @Html.Raw(ViewBag.Marque)
         </dd>
         <dt>
-            Catégorie
+            Category
         </dt>
         <dd>
             @Html.Raw(ViewBag.Categorie)
@@ -97,6 +97,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    }    
     <a asp-action="Index">Back to List</a>
 </div>

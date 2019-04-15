@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using web_mvc.Models;
 
 namespace web_mvc.Controllers
 {
+    [Authorize]
     public class ReservationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -91,6 +93,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Reservations/Create
+        [Authorize(Roles = "Customer")]
         public IActionResult Create()
         {
             ViewData["FigurineId"] = new SelectList(_context.Figurine, "Id", "Nom");
@@ -102,6 +105,7 @@ namespace web_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create([Bind("Id,quantite,FigurineId")] Reservation reservation)
         {
             List<Figurine> figurines = _context.Figurine.ToList();
@@ -149,6 +153,7 @@ namespace web_mvc.Controllers
 
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -177,6 +182,7 @@ namespace web_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,achete,quantite,date_expiration,FigurineId")] Reservation reservation)
         {
 
@@ -194,6 +200,7 @@ namespace web_mvc.Controllers
                 }
             }
 
+            reservation.achete = true;
 
             if (ModelState.IsValid)
             {
@@ -220,6 +227,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Reservations/Delete/5
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -241,6 +249,7 @@ namespace web_mvc.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var reservation = await _context.Reservation.FindAsync(id);

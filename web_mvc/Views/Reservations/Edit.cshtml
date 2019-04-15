@@ -15,9 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <div class="checkbox">
-                    <label>
-                        <input asp-for="achete" /> @Html.DisplayNameFor(model => model.achete)
-                    </label>
+                   <input asp-for="achete" type="hidden"/>
                 </div>
             </div>
             <div class="form-group">
@@ -30,10 +28,10 @@
                 <input asp-for="FigurineId" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input asp-for="UserId" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input asp-for="UserId" class="form-control" type="hidden" />
+                <input type="submit" value="Confirm Purchase" class="btn btn-default" />
             </div>
         </form>
     </div>

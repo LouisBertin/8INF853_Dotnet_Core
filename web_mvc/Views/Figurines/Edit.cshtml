@@ -19,52 +19,52 @@
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="prix_ttc" class="control-label">Prix</label>
+                <label asp-for="prix_ttc" class="control-label">Price</label>
                 <input asp-for="prix_ttc" class="form-control" />
                 <span asp-validation-for="prix_ttc" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="quantite_magasin" class="control-label">Quantité (magasin)</label>
+                <label asp-for="quantite_magasin" class="control-label">Quantity (shop)</label>
                 <input asp-for="quantite_magasin" class="form-control" />
                 <span asp-validation-for="quantite_magasin" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="quantite_stock" class="control-label">Quantité (stock)</label>
+                <label asp-for="quantite_stock" class="control-label">Quantity (stock)</label>
                 <input asp-for="quantite_stock" class="form-control" />
                 <span asp-validation-for="quantite_stock" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="date_parution" class="control-label">Date de parution</label>
+                <label asp-for="date_parution" class="control-label">Release Date</label>
                 <input asp-for="date_parution" class="form-control" />
                 <span asp-validation-for="date_parution" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="nb_exemplaires" class="control-label">Nombre d'exemplaires</label>
+                <label asp-for="nb_exemplaires" class="control-label">Number of copies</label>
                 <input asp-for="nb_exemplaires" class="form-control" />
                 <span asp-validation-for="nb_exemplaires" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="poids" class="control-label">Poids</label>
+                <label asp-for="poids" class="control-label">Weight</label>
                 <input asp-for="poids" class="form-control" />
                 <span asp-validation-for="poids" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="largeur" class="control-label">Largeur</label>
+                <label asp-for="largeur" class="control-label">Width</label>
                 <input asp-for="largeur" class="form-control" />
                 <span asp-validation-for="largeur" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="hauteur" class="control-label">Hauteur</label>
+                <label asp-for="hauteur" class="control-label">Height</label>
                 <input asp-for="hauteur" class="form-control" />
                 <span asp-validation-for="hauteur" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="longueur" class="control-label">Longueur</label>
+                <label asp-for="longueur" class="control-label">Length</label>
                 <input asp-for="longueur" class="form-control" />
                 <span asp-validation-for="longueur" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="reference" class="control-label">Référence</label>
+                <label asp-for="reference" class="control-label">Reference</label>
                 <input asp-for="reference" class="form-control" />
                 <span asp-validation-for="reference" class="text-danger"></span>
             </div>
@@ -74,13 +74,13 @@
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MarqueId" class="control-label">Marque</label>
+                <label asp-for="MarqueId" class="control-label">Brand</label>
                 <select asp-for="MarqueId" class="form-control" asp-items="@(new SelectList(ViewBag.MarquesList, "Id", "Nom"))" >
                 </select>
                 <span asp-validation-for="MarqueId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategorieId" class="control-label">Catégorie</label>
+                <label asp-for="CategorieId" class="control-label">Category</label>
                 <select asp-for="CategorieId" class="form-control" asp-items="@(new SelectList(ViewBag.CategoriesList, "Id", "nom"))">
                 </select>
                 <span asp-validation-for="CategorieId" class="text-danger"></span>

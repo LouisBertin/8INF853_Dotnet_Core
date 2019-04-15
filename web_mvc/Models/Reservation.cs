@@ -11,25 +11,27 @@ namespace web_mvc.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Acheté")]
+        [Display(Name = "Bought")]
         [DefaultValue(false)]
         public bool achete { get; set; }
 
         
-        [Display(Name = "Quantité")]
+        [Display(Name = "Quantity")]
         public int quantite { get; set; }
 
-        [Display(Name = "Date d'expiration")]
+        [Display(Name = "Expiration date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime date_expiration { get; set; }
 
-        [Display(Name = "Montant")]
+        [Display(Name = "Amount")]
         public float montant { get; set; }
 
+        [Display(Name = "Figurine")]
         public int FigurineId { get; set; }
         public Figurine figurine { get; set; }
 
+        [Display(Name = "User")]
         public string UserId { get; set; }
     }
 }

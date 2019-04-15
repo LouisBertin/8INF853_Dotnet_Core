@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using web_mvc.Models;
 
 namespace web_mvc.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -117,6 +119,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,9 +140,19 @@ namespace web_mvc.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var categorie = await _context.Categorie.FindAsync(id);
+            List<Figurine> figurines = _context.Figurine.ToList();
+            foreach(Figurine figurine in figurines)
+            {
+                if(figurine.CategorieId == categorie.Id)
+                {
+                    _context.Figurine.Remove(figurine);
+                    await _context.SaveChangesAsync();
+                }
+            }
             _context.Categorie.Remove(categorie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

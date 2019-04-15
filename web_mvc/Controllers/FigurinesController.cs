@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,10 @@ namespace web_mvc.Controllers
             {
                 figurines = figurines.Where(r => r.CategorieId.ToString().Equals(searchCategorie));
             }
+            if (User.IsInRole("Customer") || !User.Identity.IsAuthenticated)
+            {
+                figurines = figurines.Where(r => r.quantite_magasin + r.quantite_stock != 0);
+            }
             return View(await figurines.AsNoTracking().ToListAsync());
         }
 
@@ -90,6 +95,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Figurines/Create
+        [Authorize(Roles = "Admin,Employee")]
         public IActionResult Create()
         {
             ViewBag.MarquesList = _context.Marque.ToList();
@@ -102,6 +108,7 @@ namespace web_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([Bind("Id,Nom,prix_ttc,quantite_magasin,quantite_stock,date_parution,nb_exemplaires,poids,largeur,hauteur,longueur,reference,description,MarqueId,CategorieId")] Figurine figurine)
         {
             if (ModelState.IsValid)
@@ -114,6 +121,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Figurines/Edit/5
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,6 +147,7 @@ namespace web_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,prix_ttc,quantite_magasin,quantite_stock,date_parution,nb_exemplaires,poids,largeur,hauteur,longueur,reference,description,MarqueId,CategorieId")] Figurine figurine)
         {
             if (id != figurine.Id)
@@ -170,6 +179,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Figurines/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -211,6 +221,7 @@ namespace web_mvc.Controllers
         // POST: Figurines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var figurine = await _context.Figurine.FindAsync(id);

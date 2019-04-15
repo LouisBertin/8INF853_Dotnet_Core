@@ -11,7 +11,7 @@ using web_mvc.Models;
 
 namespace web_mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Employee")]
     public class MarquesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -119,6 +119,7 @@ namespace web_mvc.Controllers
         }
 
         // GET: Marques/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,9 +140,19 @@ namespace web_mvc.Controllers
         // POST: Marques/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var marque = await _context.Marque.FindAsync(id);
+            List<Figurine> figurines = _context.Figurine.ToList();
+            foreach (Figurine figurine in figurines)
+            {
+                if (figurine.MarqueId == marque.Id)
+                {
+                    _context.Figurine.Remove(figurine);
+                    await _context.SaveChangesAsync();
+                }
+            }
             _context.Marque.Remove(marque);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -221,7 +221,7 @@ namespace web_mvc.Controllers
         // POST: Figurines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var figurine = await _context.Figurine.FindAsync(id);

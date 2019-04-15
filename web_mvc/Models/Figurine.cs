@@ -26,6 +26,8 @@ namespace web_mvc.Models
         public String reference { get; set; }
         public String description { get; set; }
 
+        public String image { get; set; }
+
         public int MarqueId { get; set; }
         public Marque marque { get; set; }
 

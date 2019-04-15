@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,10 +18,12 @@ namespace web_mvc.Controllers
     public class FigurinesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public FigurinesController(ApplicationDbContext context)
+        public FigurinesController(ApplicationDbContext context, IHostingEnvironment environment)
         {
             _context = context;
+            hostingEnvironment = environment;
         }
 
         // GET: Figurines
@@ -109,10 +115,17 @@ namespace web_mvc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<IActionResult> Create([Bind("Id,Nom,prix_ttc,quantite_magasin,quantite_stock,date_parution,nb_exemplaires,poids,largeur,hauteur,longueur,reference,description,MarqueId,CategorieId")] Figurine figurine)
+        public async Task<IActionResult> Create([Bind("Id,Nom,prix_ttc,quantite_magasin,quantite_stock,date_parution,nb_exemplaires,poids,largeur,hauteur,longueur,reference,description,MarqueId,CategorieId")] Figurine figurine, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                var uniqueFileName = GetUniqueFileName(file.FileName);
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                file.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                figurine.image = uniqueFileName;
+
                 _context.Add(figurine);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -233,6 +246,15 @@ namespace web_mvc.Controllers
         private bool FigurineExists(int id)
         {
             return _context.Figurine.Any(e => e.Id == id);
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
     }
 }

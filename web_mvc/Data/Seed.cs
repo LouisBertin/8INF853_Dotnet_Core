@@ -3,12 +3,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using web_mvc.Models;
 
 namespace web_mvc.Data
 {
-    public static class Seed
+    public class Seed
     {
+
         public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
         {
             //initializing custom roles   
@@ -89,5 +92,36 @@ namespace web_mvc.Data
                 }
             }
         }
+
+        public static async Task CreateCategories(IServiceProvider serviceProvider, IConfiguration Configuration)
+        {
+            // get context service
+            ApplicationDbContext context = serviceProvider.GetService<ApplicationDbContext>();
+
+            if (context.Categorie.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var categorie = new Categorie("test");
+            context.Update(categorie);
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task CreateMarque(IServiceProvider serviceProvider, IConfiguration Configuration)
+        {
+            // get context service
+            ApplicationDbContext context = serviceProvider.GetService<ApplicationDbContext>();
+
+            if (context.Marque.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var marque = new Marque("funko");
+            context.Update(marque);
+            await context.SaveChangesAsync();
+        }
+
     }
 }

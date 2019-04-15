@@ -22,6 +22,8 @@ namespace web_mvc
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
                     Seed.CreateRoles(serviceProvider, configuration).Wait();
+                    Seed.CreateCategories(serviceProvider, configuration).Wait();
+                    Seed.CreateMarque(serviceProvider, configuration).Wait();
                 }
                 catch (Exception exception)
                 {

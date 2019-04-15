@@ -13,5 +13,11 @@ namespace web_mvc.Models
         [Display(Name = "Name")]
         public string nom { get; set; }
         public ICollection<Figurine> figurines { get; set; }
+
+        public Categorie() { }
+        public Categorie(string nom)
+        {
+            this.nom = nom;
+        }
     }
 }

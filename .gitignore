@@ -172,6 +172,10 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 
+web_mvc/wwwroot/uploads/*
+!web_mvc/wwwroot/uploads/.gitkeep
+
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef

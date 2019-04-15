@@ -11,19 +11,25 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            Image
+        </dt>
+        <dd>
+            <img src="~/uploads/@Html.DisplayFor(model => model.image)" alt="my img" width="300" />
+        </dd>
+        <dt>
             Nom
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Nom)
         </dd>
         <dt>
-           Prix
+            Prix
         </dt>
         <dd>
             @Html.DisplayFor(model => model.prix_ttc)
         </dd>
         <dt>
-           Quantité (magasin)
+            Quantité (magasin)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.quantite_magasin)
